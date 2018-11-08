@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+      {{pageTitle}}
+    </div>
+<div class="card-body">
+ 
+
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Product Code</th>
+          <th scope="col">Release Date</th>
+          <th scope="col">Description</th>
+          <th scope="col">Price</th>
+          <th scope="col">Five Star Rating</th>
+          <th scope="col">Images</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let product of productList">
+            <td ><img *ngIf="showHideImage" [src]="[product.imageUrl]"
+              [style.width.px]="[imageWidth]" 
+              /></td>
+          <td>{{product.productId}}</td>
+          <td><a [routerLink]="['/product-detail',product.productId]">{{product.productName}}</a></td>
+          <td>{{product.productCode | convertToSpaces:'-'}}</td>
+          <td>{{product.releaseDate}}</td>
+          <td>{{product.description}}</td>
+          <td>{{product.price | currency:'USD':'symbol':'1.3-4'}}</td>
+          <td><app-star [rating]='product.starRating' (ratingClicked)="onRatingClicked($event)"></app-star></td>
+          
+        </tr>
+       
+      </tbody>
+    </table>
+</div>
+</div>

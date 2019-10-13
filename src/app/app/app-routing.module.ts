@@ -4,10 +4,13 @@ import { RouterModule } from '@angular/router';
 import { Route } from '@angular/router';
 import { Routes } from '@angular/router/src/config';
 import { WelcomeComponent } from '../home/welcome/welcome.component';
+import { LoginComponent } from '../login/login.component';
+import { AuthGuard } from '../auth.guard';
 const appRouts: Routes = [
-  {path:'welcome', component:WelcomeComponent},
-  {path:'', component:WelcomeComponent},
-  {path:'**', component:WelcomeComponent}   
+  {path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent},
+  {path: '', component: LoginComponent},
+  {path: '**', component: LoginComponent}
 ];
 @NgModule({
   declarations: [],

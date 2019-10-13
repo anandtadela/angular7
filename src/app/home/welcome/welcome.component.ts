@@ -8,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class WelcomeComponent implements OnInit {
 
   constructor() { }
-
+  user: string;
   ngOnInit() {
+    this.user = localStorage.getItem('uname');
   }
 
 }

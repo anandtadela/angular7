@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationStart, Event, NavigationEnd } from '@angular/router';
+import { UtilService } from './util/util.service';
+import { AuthService } from './auth.service';
 
 
 @Component({
@@ -9,14 +11,23 @@ import { Router, NavigationStart, Event, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   showLoading = false;
-  constructor(private route:Router) {
-    this.route.events.subscribe((routerEvent:Event)=> {
-        if(routerEvent instanceof NavigationStart) {
+  public showNav = false;
+  constructor(private router: Router, private utilservice: UtilService, private auth: AuthService) {
+    this.router.events.subscribe((routerEvent: Event) => {
+        if (routerEvent instanceof NavigationStart) {
           this.showLoading = true;
         }
-        if(routerEvent instanceof NavigationEnd) {
+        if (routerEvent instanceof NavigationEnd) {
           this.showLoading = false;
+          if (this.utilservice.obj && this.utilservice.obj.hasOwnProperty('username')) {
+            this.showNav = true;
+          }
         }
-    })
+
+    });
+  }
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['login']);
   }
 }
